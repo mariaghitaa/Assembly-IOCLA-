@@ -1,0 +1,74 @@
+Ghita_Maria_311CC
+
+ TEMA3 - README
+
+ Task 1
+    
+    Functia check_parantheses verifica daca un sir dat este
+parantezat corect, adica fiecare paranteza deschisa '(', '{', '[' este inchisa corect.
+ Functia ia ca input un sir, care este stocat in adresa de memorie indicata de ebp + 8. 
+ Apoi, se itereaza prin sir, caracter cu caracter si verifica daca sirul contine perechi 
+ de parnteze imbricate corect (), {}, []. Se cauta parantezele rotunde si apoi se adauga 
+ pe stiva cate o paranteza dreapta si se verifica daca o inchide pe cea rounda sau nu. 
+ Daca da, se scoate de pe stiva. Daca stiva ramane goala se returneaza 0, iar daca au mai
+  ramas elemente, intra in functia inccorect si se returneaza 1.
+    Acest exercitiu l-am avut de facut la laboratorul cu stive.
+
+Task 2 - subtask 2 - bsearch
+
+    In acest subtask am avut de implementat functia binary_search. Ea va
+returna pozitia elementului needle in cadrul unui array. Incep prin a salva pe stiva registrii 
+de care voi avea nevoie. Imi setez edi sa contina inceputul si esi sfarsitul array-ului. Compar 
+cele doua si daca edi > esi ma duc in functia not_found care intoarce -1, deoarece val nu a fost gasita.
+Apoi imi calculez mijlocul sirului prin adunarea start + end si prin shiftare la dreapta pt a efectua 
+'impartirea la 2'. Compar needle cu mijlocul si daca e chiar mijlocul inseamna ca l am gasit. Daca neeeddle
+ este mai mare decat mijlocul functia va cauta in dreapta array-ului: incrementeaza cu 1, pune pe stiva 
+ end-ul si apeleaza recursiv functia binary_search (creste registrul esp cu 8 octeti pentru a elibera pt a 
+ elimina cei 8 octeti de pe stiva dupa fiecare apel recursiv). Daca se afla in partea stanga, cautarea se va 
+ efectua acolo, doar ca de data aceasta, scadem pt a cobori spre start. Atunci cand se identifica needle-ul 
+ se sare la functia found, care va returna pozitia elementului, dupa care se da pop-urile necesare si se termina.
+  Altfel, functia va returna -1 (needle-ul nu a fost gasit).
+
+Task 3
+
+subtask 1:
+    In acest task am avut de implementat functia DFS. Pt asta am inceput prin a extrage nodul sursa pe care l am 
+marcat ca vizitat si l am afisat. Dupa aceea am folosit functia expand, din reg esi, sa obtin vecinii nodului curent,
+se itereaza prin acestia si intra in bucla. Verific daca am trecut prin toti vecinii si daca da sar la final.
+Iau vecinul curent si verific daca e vizitat. Daca nu e apelez recursiv dfs-ul si pt el si dupa pt vvecinii lui. 
+Cand sunt toate nodurile vizitate functia se opreste.
+
+subtask 2:
+    In rezolvarea acestui subtask m am folosit de algoritmul de pe pbinfo pe care l am folosit si in liceu https://www.pbinfo.ro/articole/7666/quicksort 
+de aici si ideea cu pivotul (pozitia pe care o are).
+    Asadar am utilizat doua functii : pivot si quick_sort.
+    Functia pivot rearanjeaza elementele  astfel incat toate elementele mai mici decat pivotul sa fie pe partea stanga,
+iar toate elementele mai mari decat pivotul sa fie pe partea dreapta. Indicele pivot din final este returnat in registrul eax.
+    Functia quick_sort verifica mai inati daca indicele de inceput este mai mic decat indicele de sfarsit. Daca nu, inseamna ca elementele 
+sunt deja sortate si nu mai e nevoie de sortare. Daca indejul de start este mai mic decat cel de final, functia quick_sort apeleaza 
+functia pivot pt a aranja elementele in jurul pivotului. Dupa aceea functia quick_sort se apeleaza recursiv de doua ori. O data pentru
+partea stanga de la indicele de start pana la pivot - 1 si o data pt partea dreapta de la pivot + 1 la sfarsit. Acest lucru se intampla
+recursiv pana cand toate elementele sunt sortate.
+
+
+Pentru bonus:
+    MAP:
+        -mi am luat registrii:
+            rdi-array destinatie
+            rsi-array sursa
+            rdx-dimensiunea array-lui
+            rcx-pointerul la functie (to_apply)
+        -iterez prin fiecare element al array-ului sursa si aplic functia to_apply pe aceasta
+    si salvez in array-ul destinatie.
+
+    REDUCE:
+        -mi am luat registrii:
+            rdi-array destinatie
+            rsi-array sursa
+            rdx-dimensiunea array-lui
+            rcx-accumulator
+            r8-pointerul la functie (to_apply)
+        -se foloseste accumulatorul initial
+        -se itereaza prin fiecare elem al array-ului sursa si se aplica fctia to_apply, actualizand valoarea
+        accumulatorului cu rezultatul
+        -la final, functia returneaza valoarea finala a acumulatorului
